@@ -24,12 +24,12 @@ def predict():
          'population_density': [result.get('population_density')]
     })
 
-    l = list(model.predict_proba(new))
+    l = list(pipe.predict_proba(new))
     df2 = pd.DataFrame(l,columns=['prob'])
     df3 = pd.concat([df1,df2],axis=1)
     df3.sort_values(by=['prob'], ascending=False).head(10)
 
-    return render_template('result.html', prediction=df3[0])
+    return render_template('result.html', prediction=df3)
 
 if __name__ == '__main__':
     app.run(debug=True)
