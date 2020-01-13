@@ -15,11 +15,11 @@ def predict():
     if request.method == 'POST':
         result = request.form
     new = pd.DataFrame({ # should be based on the options of the model
-         'close_to_water': result['close_to_water'],
-         'city': result['city'],
-         'weather': result['weather'],
-         'temperature': result['temperature'],
-         'population_density': result['population_density']
+         'close_to_water': [result.get('close_to_water')],
+         'city': [result.get('city')],
+         'weather': [result.get('weather')],
+         'temperature': [result.get'temperature')],
+         'population_density': [result.get('population_density')]
     })
 
     prediction = pipe.predict(new)[0]
