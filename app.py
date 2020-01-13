@@ -18,7 +18,7 @@ def predict():
          'close_to_water': [result.get('close_to_water')],
          'city': [result.get('city')],
          'weather': [result.get('weather')],
-         'temperature': [result.get'temperature')],
+         'temperature': [result.get('temperature')],
          'population_density': [result.get('population_density')]
     })
 
