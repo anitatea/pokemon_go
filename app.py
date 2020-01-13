@@ -17,7 +17,7 @@ def predict():
     if request.method == 'POST':
         result = request.form
     new = pd.DataFrame({ # should be based on the options of the model
-         # 'close_to_water': [True],
+         'close_to_water': [True],
          'city': [result.get('city')],
          'weather': [result.get('weather')],
          'temperature': [result.get('temperature')],
