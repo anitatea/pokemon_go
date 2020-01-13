@@ -52,6 +52,13 @@ model.fit(
     plot=False,
 )
 
+df1 = pd.read_csv('data/poke.csv')
+l = list(model.predict_proba(Z_test))
+df2 = pd.DataFrame(l,columns=['prob'])
+df3 = pd.concat([df1,df2],axis=1)
+df3.sort_values(by=['prob'], ascending=False).head(10)
+
+
 pipe = make_pipeline(mapper, model)
 pipe.fit(X_train, y_train)
 pipe.score(X_test, y_test)
