@@ -14,14 +14,13 @@ def index():
 def predict():
     if request.method == 'POST':
         result = request.form
-    new = pd.DataFrame({
-         'close_to_water': [True],
-         'city': ['Los_Angeles'],
-         'weather': ['Clear'],
-         'temperature': [19.7],
-         'population_density': [4188.391]
+    new = pd.DataFrame({ # should be based on the options of the model
+         'close_to_water': result['close_to_water'],
+         'city': result['city'],
+         'weather': result['weather'],
+         'temperature': result['temperature'],
+         'population_density': result['population_density']
     })
-
 
     prediction = pipe.predict(new)[0]
      # prediction = '${:,.2f}'.format(prediction)
