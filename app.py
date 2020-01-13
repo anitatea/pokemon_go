@@ -29,7 +29,7 @@ def predict():
     df3 = pd.concat([df1,df2],axis=1)
     df3.sort_values(by=['prob'], ascending=False).head(10)
 
-    return render_template('result.html', prediction=df3)
+    return render_template('result.html', prediction=df3[0])
 
 if __name__ == '__main__':
     app.run(debug=True)
