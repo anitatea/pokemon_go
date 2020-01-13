@@ -24,7 +24,7 @@ mapper = DataFrameMapper([
      # ('latitude',[CategoricalImputer(), LabelBinarizer()]),
      # ('longitude',[CategoricalImputer(), LabelBinarizer()]),
      # (['local_time'],[SimpleImputer(), StandardScaler()]),
-     (['close_to_water'], StandardScaler()),
+     # (['close_to_water'], StandardScaler()),
      ('city',LabelBinarizer()),
      ('weather',LabelBinarizer()),
      (['temperature'],StandardScaler()),
@@ -40,26 +40,19 @@ Z_train = select.transform(Z_train)
 Z_test = select.transform(Z_test)
 
 
-model = LogisticRegression(solver='lbfgs')
-model.fit(Z_train, y_train)
-model.predict(X_test)
+model = cb.CatBoostClassifier(
+    iterations=100,
+    learning_rate=0.9,
+    early_stopping_rounds=20,
+)
+model.fit(
+    Z_train, y_train,
+    eval_set=(Z_test, y_test),
+    verbose=False,
+    plot=False,
+)
 
-# model = cb.CatBoostClassifier(
-#     iterations=100,
-#     learning_rate=0.5,
-# )
-#
-# model.fit(
-#     Z_train, y_train,
-#     eval_set=(Z_test, y_test),
-#     verbose=False,
-#     plot=False,
-# )
-
-model.score(Z_test, y_test)
-
-
-# pipe = make_pipeline(mapper, model)
-# pipe.fit(X_train, y_train)
-# pipe.score(X_test, y_test)
-# pickle.dump(pipe, open('pipe.pkl', 'wb'))
+pipe = make_pipeline(mapper, model)
+pipe.fit(X_train, y_train)
+pipe.score(X_test, y_test)
+pickle.dump(pipe, open('pipe.pkl', 'wb'))
