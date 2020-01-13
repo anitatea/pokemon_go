@@ -6,7 +6,7 @@ from flask import Flask, request, render_template
 app = Flask(__name__)
 pipe = pickle.load(open('model/pipe.pkl', 'rb'))
 df1 = pd.read_csv('data/poke.csv')
-    
+
 
 @app.route('/')
 def index():
@@ -29,8 +29,7 @@ def predict():
     df3 = pd.concat([df1,df2],axis=1)
     df3.sort_values(by=['prob'], ascending=False).head(10)
 
-    return render_template('result.html', prediction=prediction)
-    # return render_template('result.html', prediction=result['pokedex'])
+    return render_template('result.html', prediction=df3)
 
 if __name__ == '__main__':
-    app.run(debug=True) #(debug=True), remove this when everything has been built
+    app.run(debug=True)
