@@ -1,12 +1,18 @@
+import os
 import pickle
 import numpy as np
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 
 app = Flask(__name__)
 pipe = pickle.load(open('model/pipe.pkl', 'rb'))
 df1 = pd.read_csv('data/poke.csv')
 
+# adding favicon
+@app.route('/poke.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'poke.ico', mimetype='image/png')
 
 @app.route('/')
 def index():
