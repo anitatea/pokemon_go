@@ -15,7 +15,7 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
                                'poke.ico', mimetype='image/png')
 
-@app.route('/')
+@app.route('/manual')
 def index():
     return render_template('index.html')
 
@@ -87,7 +87,7 @@ def weather(lat,long):
     weather_id = x['weather'][0]['id']
     return [ weather_codes[f'{weather_id}'] , weather_temp ]
 def get_my_ip():
-    ip =  request.headers.get('X-Forwarded-For', request.remote_addr) #request.environ['REMOTE_ADDR'] #'8.8.8.8' #request.remote_addr
+    ip =  '8.8.8.8'#request.headers.get('X-Forwarded-For', request.remote_addr) #request.environ['REMOTE_ADDR'] #'8.8.8.8' #request.remote_addr
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
     key = "2e571f58a33c4c92b5b9e83a95d4d554"
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
@@ -99,20 +99,48 @@ def get_my_ip():
     longitude_ip = x['location']['longitude']
     return [city, latitude_ip, longitude_ip]
 
-@app.route('/result', methods=['POST','GET'])
-def predict():
+@app.route('/', methods=['POST','GET'])
+def finn():
     city, latitude, longitude = get_my_ip()
     weather_location, temperature = weather(latitude, longitude)
     if request.method == 'POST':
         result = request.form
     new = pd.DataFrame({ # should be based on the options of the model
-         'close_to_water': [True],
-         'city': [city],
+         'latitude' : [latitude],
+         'longitude' : [longitude],
+         'hour' : ['10'],
+         'day' : ['Monday'],
+         'close_to_water': ['yes'],
          'weather': [weather_location],
          'temperature': [temperature],
          'population_density': [result.get('population_density')]
     })
-    prediction = pipe.predict(new)[0]
-    return render_template('result.html', prediction=prediction)
+    l = list(pipe.predict_proba(new)[0])
+    df2 = pd.DataFrame(l,columns=['prob'])
+    df3 = pd.concat([df1,df2],axis=1)
+    pred = list(df3.sort_values(by=['prob'], ascending=False).head(10)['pokemon'])
+    return render_template('result.html', prediction=pred)
+
+@app.route('/result', methods=['POST','GET'])
+def manual():
+        if request.method == 'POST':
+            result = request.form
+        new = pd.DataFrame({ # should be based on the options of the model
+             'latitude' : [result.get('latitude')],
+             'longitude' : [result.get('longitude')],
+             'hour' : [result.get('hour')],
+             'day' : [result.get('day')],
+             'close_to_water': [result.get('close_to_water')],
+             'weather': [result.get('weather')],
+             'temperature': [result.get('temperature')],
+             'population_density': [result.get('population_density')]
+        })
+        l = list(pipe.predict_proba(new)[0])
+        df2 = pd.DataFrame(l,columns=['prob'])
+        df3 = pd.concat([df1,df2],axis=1)
+        pred1 = list(df3.sort_values(by=['prob'], ascending=False).head(10)['pokemon'])
+        return render_template('result.html', prediction=pred1)
+
+
 if __name__ == '__main__':
     app.run(debug=True) #(debug=True), remove this when everything has been built
