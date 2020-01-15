@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template, send_from_directory
+import requests
 
 app = Flask(__name__)
 pipe = pickle.load(open('model/pipe.pkl', 'rb'))
