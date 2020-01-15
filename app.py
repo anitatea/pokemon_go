@@ -97,6 +97,7 @@ def get_my_ip():
     latitude_ip = x['location']['latitude']
     longitude_ip = x['location']['longitude']
     return [city, latitude_ip, longitude_ip]
+
 @app.route('/result', methods=['POST','GET'])
 def predict():
     city, latitude, longitude = get_my_ip()
