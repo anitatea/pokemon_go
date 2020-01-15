@@ -43,26 +43,26 @@ mapper = DataFrameMapper([
 Z_train = mapper.fit_transform(X_train)
 Z_test = mapper.transform(X_test)
 
-# select = SelectPercentile(percentile=40)
-# select.fit(Z_train, y_train)
-# Z_train = select.transform(Z_train)
-# Z_test = select.transform(Z_test)
+select = SelectPercentile(percentile=40)
+select.fit(Z_train, y_train)
+Z_train = select.transform(Z_train)
+Z_test = select.transform(Z_test)
 
 
 model = LogisticRegression()
 model.fit(Z_train, y_train)
 model.score(Z_test, y_test)
 
-df1 = pd.read_csv('data/poke.csv')
-l = list(model.predict_proba(Z_test)[32])
-df2 = pd.DataFrame(l,columns=['prob'])
-df3 = pd.concat([df1,df2],axis=1)
-list(df3.sort_values(by=['prob'], ascending=False).head(10)['pokemon'])
-
-
 pipe = make_pipeline(mapper, model)
 pipe.fit(X_train, y_train)
 pipe.score(X_test, y_test)
 pickle.dump(pipe, open('pipe.pkl', 'wb'))
+
+#
+# df1 = pd.read_csv('data/poke.csv')
+# l = list(model.predict_proba(Z_test)[8])
+# df2 = pd.DataFrame(l,columns=['prob'])
+# df3 = pd.concat([df1,df2],axis=1)
+# list(df3.sort_values(by=['prob'], ascending=True).head(10)['pokemon'])
 
 #  API key
