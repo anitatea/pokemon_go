@@ -66,4 +66,3 @@ pipe.score(X_test, y_test)
 pickle.dump(pipe, open('pipe.pkl', 'wb'))
 
 #  API key
- AIzaSyC8s7NoUPvK5ktoSaEq2r9Fk-I7zVTh114
