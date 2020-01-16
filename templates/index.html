@@ -1,45 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <!-- <title>Poke-matic 3000</title>
-  <body>
-    <h3>Poke-matic 3000</h3> -->
 <head>
   <link rel="shortcut icon" href="/poke.ico"/>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <!-- Java script requirements -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>Gotta Catch-em All! (╯°□°)╯︵◓ </title>
 </head>
-<body bgcolor="#000000" background='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.designtrends.com%2Fwp-content%2Fuploads%2F2016%2F04%2F05113541%2FPokemon-Desktop-Background.png&f=1&nofb=1'text="#ff0000">
+<CENTER>
+
+<!-- CSS -->
+<style type="text/css">
+html,
+body {
+height: 100%;
+}
+
+body {
+background-image: url(https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdata.1freewallpapers.com%2Fdownload%2Fserena-on-the-bike-pokemon-1600x900.jpg&f=1&nofb=1);
+background-repeat: no-repeat;
+background-size: 100% 100%;
+}
+</style>
+
+</head>
+<body>
 
 
   <nav class="navbar navbar-dark" style="background-color: #3c5aa6;">
   <!-- Navbar content -->
-  <a class="navbar-brand" href="#">Gotta Catch-em All! (╯°□°)╯︵◓ </a>
+  <a class="navbar-brand" href="#">Gotta Catch-em All! (╯°□°)╯︵◓ - You're going to be... THE VERY BEST!!💗</a>
   </nav>
 
-<br>
+  <div class="container-fluid">
+  <br>
+  <br>
+  <br>
+  <br>
+<!-- <CENTER> -->
+    <h3 style='color:white' input align='center'> Pokemon around you are:</h3>
+    <h3> {{ prediction }}</h3>
+    <!-- using jinja -->
 
-<CENTER>
-  <p><b> Poke-Bowl</b></p>
+    <img src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves"  width=250/>
+    <br>
+    <br>
+    <p style='color:white'>Go get em'! Click below to move.</p>
+    <form style='color:white' action = "/manual" method="POST">
+      <p><input type ="submit" class="btn btn-dark btn-lg" value="⬆️"/></p>
+      <p><input type ="submit" class="btn btn-dark btn-lg" value="⬅️"/>
 
-    <form style='color:white' action = "/result" method="POST">
-      <p>latitude? <input align='center' name="latitude" type="text" value='101'></p>
-      <p>longitude?? <input align='center' name="longitude" type="text" value='101'></p>
-      <p>hour?? <input align='center' name="hour" type="text" value='4'></p>
-      <p>day?? <input align='center' name="day" type="text" value='Monday'></p>
-      <p>Close to water? <input align='center' name="close_to_water" type="text" value='yes'></p>
-      <p>Weather? <input align='center' name="weather" type="text" value='Clear'></p>
-      <p>Temperature? <input align='center' name="temperature" type="number" value=19.7></p> -->
-      <p>Population density (people not pokemon)? <input align='center' name="population_density" type="number" value=4188.391></p>
-
-      <p><input type ="Submit" value="Submit"/></p>
+      <input type ="submit" class="btn btn-dark btn-lg" value="➡️"/>
+      </p>
+      <p><input type ="submit" class="btn btn-dark btn-lg" value="⬇️"/></p>
     </form>
+  </div>
   </body>
 </html>
