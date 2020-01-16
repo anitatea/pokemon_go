@@ -113,7 +113,7 @@ def finn():
          'close_to_water': ['yes'],
          'weather': [weather_location],
          'temperature': [temperature],
-         'population_density': [result.get('population_density')]
+         'population_density': 4188.391 # [result.get('population_density')]
     })
     l = list(pipe.predict_proba(new)[0])
     df2 = pd.DataFrame(l,columns=['prob'])
