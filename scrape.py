@@ -10,12 +10,10 @@ df['city'].unique()
 df = df[df['city']=='Toronto']
 df.reset_index(inplace=True)
 df.drop('index',axis=1, inplace=True)
+df['google_types'] = ''
 
-for i in google_types:
-    df[i] = 0
-df.head()
-
-
+df
+len(google_types)
 
 def scrape_place(lat, long):
     base_url = "https://maps.googleapis.com/maps/api/place/search/json?location="
@@ -28,45 +26,41 @@ def scrape_place(lat, long):
     types = set([])
     for i in y:
         for h in i['types']:
-            types.add(h)
+            if h in google_types:
+                types.add(h)
     return list(types)
-
-scrape_place(43.770318,-79.212555)
-
-types
-if 'political' in scrape_place(43.770318,-79.212555):
-
+google_types
+place_ = scrape_place(43.770318,-79.212555)
+place_
 
 
 def list_place(dfx,i):
     x = dfx.latitude[i]
     y = dfx.longitude[i]
-    z = scrape_place(x, y)
-    for n in z:
-        if n in google_types:
-            dfx[n][i] = 1
-            print(dfx[n][i])
-        else:
-            pass
+    df['google_types'][i] = scrape_place(x, y)
 
 
-list_place(df,18)
+
+list_place(df,1)
+for rows in range(len(df)):
+    list_place(df,rows)
+df
 df.iloc[[3581]]
 df.shape
 
 len(df)
 for row in range(len(df)):
     list_place(df,row)
+df
 
 
+df.to_csv('scraped_df2.csv', index_label=False)
 
-df.to_csv('scraped_df', index_label=False)
-
-pd.read_csv('scraped_df.csv')
-
-pd.set_option('display.max_columns', 500)
-list_place(df,17)
-df['pokedex_id'][1]
+# pd.read_csv('scraped_df.csv')
+#
+# pd.set_option('display.max_columns', 500)
+# list_place(df,17)
+# df['pokedex_id'][1]
 
 
 #for i in df.index:
