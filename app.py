@@ -38,7 +38,7 @@ def weather(lat,long):
 def get_my_ip():
     ''' Return location and timezone offset based on ip '''
     # if run locally replace ip as string
-    ip =  request.headers.get('X-Forwarded-For', request.remote_addr) 
+    ip = '8.8.8.8' #request.headers.get('X-Forwarded-For', request.remote_addr) 
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
     key = ip_geolocate
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
@@ -47,7 +47,7 @@ def get_my_ip():
     city = x['location']['city']
     latitude_ip = x['location']['latitude']
     longitude_ip = x['location']['longitude']
-    base_url_2 = "https://api.ipgeolocation.io/timezone?apiKey=" 
+    base_url_2 = "https://api.ipgeolocation.io/timezone?apiKey="
     complete_url_2 = base_url_2 + key + "&ip=" + str(ip) + "&lang=en"
     response = requests.get(complete_url_2)
     x = response.json()
@@ -76,7 +76,7 @@ def predict_poke(latitude=0,longitude=0, local_timezone=0):
     local_hour = int(time.strftime("%H", time.gmtime())) + local_timezone
     local_day = str(time.strftime("%A", time.gmtime()))
     place_list = scrape_place(latitude,longitude)
-    new = pd.DataFrame({ 
+    new = pd.DataFrame({
             'latitude' : [latitude],
             'longitude' : [longitude],
             'hour' : [local_hour],
@@ -85,7 +85,7 @@ def predict_poke(latitude=0,longitude=0, local_timezone=0):
             'weather': [weather_location],
             'temperature': [temperature],
             'google_types': [place_list],
-            'population_density': 4000 
+            'population_density': 4000
     })
     l = list(pipe.predict_proba(new))
     zip_list = list(zip(pipe.classes_,l[0]))
@@ -105,7 +105,7 @@ def predict_poke(latitude=0,longitude=0, local_timezone=0):
 
 @app.route('/', methods=['POST','GET'])
 def index():
-    proba_dict = predict_poke() 
+    proba_dict = predict_poke()
     return render_template('index.html',  gif=proba_dict['id'], names=proba_dict['pokemon'])
 
 @app.route('/north', methods=['POST','GET'])
@@ -137,8 +137,8 @@ def west():
 def manual_result():
     if request.method == 'POST':
         result = request.form
-    place_list = scrape_place(result.get('latitude'),result.get('longitude'))    
-    new = pd.DataFrame({ 
+    place_list = scrape_place(result.get('latitude'),result.get('longitude'))
+    new = pd.DataFrame({
             'latitude' : [result.get('latitude')],
             'longitude' : [result.get('longitude')],
             'hour' : [result.get('hour')],
@@ -174,7 +174,7 @@ def graph_poke(latitude=0,longitude=0, local_timezone=0):
     local_hour = int(time.strftime("%H", time.gmtime())) + local_timezone
     local_day = str(time.strftime("%A", time.gmtime()))
     place_list = scrape_place(latitude,longitude)
-    new = pd.DataFrame({ 
+    new = pd.DataFrame({
             'latitude' : [latitude],
             'longitude' : [longitude],
             'hour' : [local_hour],
@@ -183,7 +183,7 @@ def graph_poke(latitude=0,longitude=0, local_timezone=0):
             'weather': [weather_location],
             'temperature': [temperature],
             'google_types': [place_list],
-            'population_density': 4000 
+            'population_density': 4000
     })
     l = list(pipe.predict_proba(new))
     zip_list = list(zip(pipe.classes_,l[0]))
@@ -215,4 +215,4 @@ def manual_entry():
     return render_template('manual.html')
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
