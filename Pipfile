@@ -12,8 +12,6 @@ sklearn-pandas = "*"
 flask = "*"
 gunicorn = "*"
 dill = "*"
-requests = "*"
-time = "*"
 
 [requires]
 python_version = "3.7"
