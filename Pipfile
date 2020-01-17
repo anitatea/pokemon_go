@@ -8,10 +8,12 @@ verify_ssl = true
 [packages]
 scikit-learn = "*"
 pandas = "*"
-sklearn-pandas = "*"
+dill = "*"
 flask = "*"
 gunicorn = "*"
-dill = "*"
+requests = "*"
+numpy = "*"
+sklearn-pandas = "*"
 
 [requires]
 python_version = "3.7"
