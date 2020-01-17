@@ -7,7 +7,7 @@ import requests
 from app_values import weather_codes
 from datetime import datetime
 import time
-
+from api_keys import weather_api_key, ip_geolocate, google_key
 app = Flask(__name__)
 pipe = pickle.load(open('model/pipe.pkl', 'rb'))
 df1 = pd.read_csv('data/poke.csv')
@@ -20,7 +20,7 @@ def favicon():
 
 def weather(lat,long):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    key = "d7faea5d1fb22532b1fca3da90745d37"
+    key = weather_api_key
     complete_url = base_url + "lat=" + f'{lat}' + "&lon=" + f'{long}' + "&units=metric&APPID=" + key
     response = requests.get(complete_url)
     complete_url
@@ -30,9 +30,9 @@ def weather(lat,long):
     return [ weather_codes[f'{weather_id}'] , weather_temp ]
 
 def get_my_ip():
-    ip =  '8.8.8.8' #'72.143.53.170'#request.headers.get('X-Forwarded-For', request.remote_addr) 
+    ip =  '72.143.53.170'#request.headers.get('X-Forwarded-For', request.remote_addr) 
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
-    key = "2e571f58a33c4c92b5b9e83a95d4d554"
+    key = ip_geolocate
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
     complete_url
     response = requests.get(complete_url)
@@ -49,7 +49,7 @@ def get_my_ip():
 
 def scrape_place(lat, long):
     base_url = "https://maps.googleapis.com/maps/api/place/search/json?location="
-    key = "AIzaSyBp9botUwSL1BWEJuLrccoWUtE2nJED9qs"
+    key = google_key
     complete_url = base_url +  f'{lat}' + "," + f'{long}' + "&radius=100&key=" + key
     response = requests.get(complete_url)
     x = response.json()
@@ -171,4 +171,4 @@ def manual_entry():
 
 if __name__ == '__main__':
     app.run(debug=True) #(debug=True), remove this when everything has been built
-    
+
