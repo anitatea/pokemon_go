@@ -1,9 +1,12 @@
 from datetime import datetime
+import io
 import os
 import pickle
 import time
 
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 import numpy as np
 import pandas as pd
 import requests
@@ -162,9 +165,54 @@ def manual_result():
     proba_dict = out.reset_index(drop=True).to_dict(orient='dict')
     return render_template('index.html',  gif=proba_dict['id'], names=proba_dict['pokemon'])
 
+@app.route('/graph', methods=['POST','GET'])
+def graph_poke(latitude=0,longitude=0, local_timezone=0):
+    ''' Return graph of pokemon probs '''
+    if latitude==0 and longitude==0 and local_timezone==0:
+        city, latitude, longitude, local_timezone = get_my_ip()
+    weather_location, temperature = weather(latitude, longitude)
+    local_hour = int(time.strftime("%H", time.gmtime())) + local_timezone
+    local_day = str(time.strftime("%A", time.gmtime()))
+    place_list = scrape_place(latitude,longitude)
+    new = pd.DataFrame({ 
+            'latitude' : [latitude],
+            'longitude' : [longitude],
+            'hour' : [local_hour],
+            'day' : [local_day],
+            'close_to_water': ['yes'],
+            'weather': [weather_location],
+            'temperature': [temperature],
+            'google_types': [place_list],
+            'population_density': 4000 
+    })
+    l = list(pipe.predict_proba(new))
+    zip_list = list(zip(pipe.classes_,l[0]))
+    df1 = pd.DataFrame(zip_list, columns=['id','prob'])
+    df2 = pd.read_csv('data/poke.csv')
+    new_list = []
+    for row in range(len(df1)):
+        for i in range(len(df2)):
+            if df1['id'][row] == df2['id'][i]:
+                new_list.append(df2['pokemon'][i])
+        else:
+            pass
+    df1['pokemon'] = new_list
+    df2 = df1.sort_values(by=['prob'], ascending=False).head(25).sort_values(by=['prob'], ascending=True)
+    fig = Figure()
+    axis = fig.add_subplot(1, 1, 1)
+    xs = df2['prob']
+    ys = df2['pokemon']
+    axis.barh(ys, xs)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
+
+
+
 @app.route('/manual')
 def manual_entry():
     return render_template('manual.html')
 
 if __name__ == '__main__':
-    app.run() 
+    app.run(debug=True) 
