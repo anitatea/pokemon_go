@@ -24,17 +24,17 @@ div.background {
   background: url(https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdata.1freewallpapers.com%2Fdownload%2Fserena-on-the-bike-pokemon-1600x900.jpg&f=1&nofb=1);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  border: 2px solid black;
 }
 
 div.transbox {
   width: 500px;
-  height: auto;
+  height: 225px;
   /* margin: 10px; */
+  /* background: rgba(76, 175, 80, 0.3) */
   background-color: #ffffff;
   border: 1px solid black;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
+  opacity: 0.85;
+  /* filter: alpha(opacity=30); */
 }
 
 div.transbox p {
@@ -42,7 +42,6 @@ div.transbox p {
   font-weight: bold;
   color: #000000;
 }
-
 
 html,
 body {
@@ -66,38 +65,79 @@ background-size: 100% 100%;
   <a class="navbar-brand" href="#" >Gotta Catch-em All! (╯°□°)╯︵◓ </a>
   </nav> -->
 
-  <div class="container-fluid">
+<div class="container-fluid">
   <br>
   <br>
   <br>
   <h1 style='color:white' class='transbox'><b>Gotta Catch-em All! (╯°□°)╯︵◓ <b></h1>
   <br>
+  <br>
+  <br>
 <!-- <CENTER> -->
     <h3 style='color:white' input align='center'> Pokemon in your area:</h3>
-    <br>
 <!-- predicted pokemon-->
 <div class='transbox'>
-  <p><img src="static/images/gifs/{{gif.0}}.gif" width=50/>
-    {{names.0}}
-    <img src="static/images/gifs/{{gif.1}}.gif" width=50/> {{names.1}}
-    <img src="static/images/gifs/{{gif.2}}.gif" width=50/> {{names.2}} </p>
-    <p><img src="static/images/gifs/{{gif.3}}.gif" width=50/> {{names.3}}
-    <img src="static/images/gifs/{{gif.4}}.gif" width=50/> {{names.4}}
-    <img src="static/images/gifs/{{gif.5}}.gif" width=50/> {{names.5}} </p>
-    <p><img src="static/images/gifs/{{gif.6}}.gif" width=50/> {{names.6}}
-    <img src="static/images/gifs/{{gif.7}}.gif" width=50/> {{names.7}}
-    <img src="static/images/gifs/{{gif.8}}.gif" width=50/> {{names.8}} </p>
-</div>
-<br>
+  <div> <div style="width: 25%; float:left">
+    <p>{{names.0}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.0}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.0}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:left">
+    <p>{{names.1}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.1}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.1}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:left">
+    <p>{{names.2}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.2}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.2}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:left">
+    <p>{{names.3}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.3}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.3}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:right">
+    <p>{{names.4}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.4}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.4}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:right">
+    <p>{{names.5}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.5}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.5}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:right">
+    <p>{{names.6}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.6}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.6}}.gif" width=50/>
+    </a>
+  </div>
+  <div style="width: 25%; float:left">
+    <p>{{names.7}}</p>
+    <a href="https://bulbapedia.bulbagarden.net/wiki/{{names.7}}_(Pok%C3%A9mon)">
+    <img src="static/images/gifs/{{gif.7}}.gif" width=50/>
+    </a>
+  </div>
 
+</div>
+
+<br>
+<br>
+<br>
+<br>
     <p style='color:white'>Go get em'! Click below to move.</p>
     <form method="POST">
-      <p action = "/north" ><input type ="submit" class="btn btn-dark btn-lg" value="⬆️"/></p>
-      <p><input type ="submit" class="btn btn-dark btn-lg" value="⬅️"/>
-        <input type ="submit" class="btn btn-dark btn-lg" value="➡️"/>
-      </p>
-      <p><input type ="submit" class="btn btn-dark btn-lg" value="⬇️"/></p>
+        <p><a class="btn btn-dark btn-lg" href="/north" role="button"> ⬆️ </a></p>
+          <p> <a class="btn btn-dark btn-lg" href="/west" role="button"> ⬅️ </a>
+          <a class="btn btn-dark btn-lg" href="/east" role="button"> ➡️ </a></p>
+          <p> <a class="btn btn-dark btn-lg" href="/south" role="button"> ⬇️ </a></p>
     </form>
-  </div>
   </body>
 </html>
