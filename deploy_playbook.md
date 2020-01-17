@@ -3,7 +3,7 @@
 1. Setup a pipenv environment:
 
 ```
-pipenv install scikit-learn pandas dill flask gunicorn
+pipenv install scikit-learn pandas dill flask gunicorn requests catboost
 pipenv run python model.py
 ```
 
