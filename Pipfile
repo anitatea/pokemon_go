@@ -12,6 +12,7 @@ sklearn-pandas = "*"
 flask = "*"
 gunicorn = "*"
 dill = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
