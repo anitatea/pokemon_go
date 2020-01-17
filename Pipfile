@@ -13,6 +13,7 @@ flask = "*"
 gunicorn = "*"
 dill = "*"
 requests = "*"
+catboost = "*"
 
 [requires]
 python_version = "3.7"
