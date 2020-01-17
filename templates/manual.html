@@ -14,6 +14,29 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+  fieldset {
+    min-width:1px;
+    color:white;
+    padding:1px;
+    margin:1px;
+    border:1px;
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+  }
+  legend{display:block;
+  width:100%;max-width:100%;
+  padding:1;margin-bottom:.5rem;
+  font-size:1.5rem;
+  line-height:inherit;color:white;white-space:normal}
+  
+  </style>
   <title>Gotta Catch-em All! (╯°□°)╯︵◓ </title>
 </head>
 <body bgcolor="#000000" background='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.designtrends.com%2Fwp-content%2Fuploads%2F2016%2F04%2F05113541%2FPokemon-Desktop-Background.png&f=1&nofb=1'text="#ff0000">
@@ -26,13 +49,19 @@
 
 <br>
 
-<CENTER>
+
   <h1 style="color:white;">Manually Search for Pokemon</h1>
   <p>
     <form style='color:white' action = "/result" method="POST">
-      <p>Enter latitude: <input align='center' name="latitude" type="text" value='43.771548'></p>
-      <p>Enter longitude: <input align='center' name="longitude" type="text" value='-79.211497'></p>
-      <p>Select Time:
+      <fieldset >
+      <legend>Enter latitude:</legend>
+      <input align='center' name="latitude" type="text" value='43.771548'>
+     </fieldset>
+     <fieldset><legend>Enter longitude: </legend>
+      <input align='center' name="longitude" type="text" value='-79.211497'>
+    </fieldset>
+    <fieldset><legend>Select Time:</legend>
+      
       <select name="hour">
         <option value='1' >1:00am</option>
         <option value='2'>2:00am</option>
@@ -59,8 +88,8 @@
         <option value='23'>11:00pm</option>
         <option value='24'>12:00pm</option>
       </select>
-    </p>
-      <p>Select Day:
+    </fieldset>
+    <fieldset><legend>Select Day:</legend>
       <select name="day">
         <option value='Monday'>Monday</option>
         <option value='Tuesday'>Tuesday</option>
@@ -70,14 +99,14 @@
         <option value='Saturday'>Saturday</option>
         <option value='Sunday'>Sunday</option>
       </select>
-    </p>
-      <p>Are You Close to Water?:
+    </fieldset>
+    <fieldset><legend>Are You Close to Water?:</legend>
       <select name="close_to_water">
         <option value='yes'>Yes</option>
         <option value='no'>No</option>
       </select>
-    </p>
-    <p>Select the Weather:
+    </fieldset>
+    <fieldset><legend>Select the Weather:</legend>
     <select name="weather">
       <option value='Rain'>Rain</option>
       <option value='LightRain'>Light Rain</option>
@@ -85,12 +114,14 @@
       <option value='PartlyCloudy'>Partly Cloudy</option>
       <option value='Clear'>Clear</option>
     </select>
-  </p>
-    <p>Enter Temperature (°C)<input align='center' name="temperature" type="number"></p>
-    <p>Enter Population Density (Average 2983 ppl/km)<input align='center' name="population_density" type="number"></p>
-    <p><input type ="Submit" value="Submit"/></p>
+  </fieldset>
+  <fieldset><legend>Enter Temperature (°C)</legend><input align='center' name="temperature" type="number">
+  </fieldset>
+  <fieldset><legend>Enter Population Density (Average 2983 ppl/km)</legend><input align='center' name="population_density" type="number">
+         </fieldset>
+     <p><input type ="Submit" value="Submit"/></p>
 
-      <p><input type ="Submit" value="Submit"/></p>
+
     </form>
     </p>
   </body>
