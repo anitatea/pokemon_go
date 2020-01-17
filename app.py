@@ -30,7 +30,7 @@ def weather(lat,long):
     return [ weather_codes[f'{weather_id}'] , weather_temp ]
 
 def get_my_ip():
-    ip =  '72.143.53.170'#request.headers.get('X-Forwarded-For', request.remote_addr) 
+    ip =  '8.8.8.8' #'72.143.53.170'#request.headers.get('X-Forwarded-For', request.remote_addr) 
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
     key = "2e571f58a33c4c92b5b9e83a95d4d554"
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
