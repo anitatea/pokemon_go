@@ -38,7 +38,7 @@ def weather(lat,long):
 def get_my_ip():
     ''' Return location and timezone offset based on ip '''
     # if run locally replace ip as string '8.8.8.8'
-    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    ip = '8.8.8.8' #request.headers.get('X-Forwarded-For', request.remote_addr)
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
     key = ip_geolocate
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
@@ -201,6 +201,8 @@ def graph_poke(latitude=0,longitude=0, local_timezone=0):
     fig = Figure()
     axis = fig.add_subplot(1, 1, 1)
     xs = df2['prob']
+    xlabel = 'Probability'
+    ylabel = 'Pokemon'
     ys = df2['pokemon']
     axis.barh(ys, xs)
     output = io.BytesIO()
