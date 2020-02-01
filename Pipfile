@@ -15,6 +15,10 @@ requests = "*"
 numpy = "*"
 sklearn-pandas = "*"
 matplotlib = "*"
+plotly = "*"
+dash = "*"
+json = "*"
+request = "*"
 
 [requires]
 python_version = "3.7"
