@@ -48,7 +48,7 @@ def weather(lat,long):
 def get_my_ip():
     ''' Return location and timezone offset based on ip '''
     # if run locally replace ip as string '8.8.8.8'
-    ip = '8.8.8.8' #request.headers.get('X-Forwarded-For', request.remote_addr)
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     base_url = "https://api.ipgeolocation.io/astronomy?apiKey="
     key = ip_geolocate
     complete_url = base_url + key + "&ip=" + str(ip) + "&lang=en"
