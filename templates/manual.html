@@ -35,7 +35,7 @@
   padding:1;margin-bottom:.5rem;
   font-size:1.5rem;
   line-height:inherit;color:white;white-space:normal}
-  
+
   </style>
   <title>Gotta Catch-em All! (╯°□°)╯︵◓ </title>
 </head>
@@ -49,19 +49,20 @@
 
 <br>
 
-
+<fieldset>
   <h1 style="color:white;">Manually Search for Pokemon</h1>
+  <p style='color:white;'>Pre-filled location details are for Toronto, Canada</p>
   <p>
     <form style='color:white' action = "/result" method="POST">
       <fieldset >
-      <legend>Enter latitude:</legend>
+      <legend href="https://www.latlong.net/">Enter latitude:</legend>
       <input align='center' name="latitude" type="text" value='43.771548'>
      </fieldset>
      <fieldset><legend>Enter longitude: </legend>
       <input align='center' name="longitude" type="text" value='-79.211497'>
     </fieldset>
     <fieldset><legend>Select Time:</legend>
-      
+
       <select name="hour">
         <option value='1' >1:00am</option>
         <option value='2'>2:00am</option>
@@ -114,14 +115,13 @@
       <option value='PartlyCloudy'>Partly Cloudy</option>
       <option value='Clear'>Clear</option>
     </select>
-  </fieldset>
-  <fieldset><legend>Enter Temperature (°C)</legend><input align='center' name="temperature" type="number">
-  </fieldset>
-  <fieldset><legend>Enter Population Density (Average 2983 ppl/km)</legend><input align='center' name="population_density" type="number">
-         </fieldset>
-     <p><input type ="Submit" value="Submit"/></p>
-
-
+    </fieldset>
+    <fieldset><legend>Enter Temperature (°C)</legend><input align='center' name="temperature" type="number" value='24'>
+    </fieldset>
+    <fieldset><legend>Enter Population Density (Average 2983 ppl/km)</legend><input align='center' name="population_density" type="number" value="4457">
+    </fieldset>
+    <br>
+    <p class="btn btn-lg"><input type ="Submit" value="Submit"/></p>
     </form>
     </p>
   </body>

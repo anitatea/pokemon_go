@@ -3,6 +3,16 @@ import io
 import os
 import pickle
 import time
+import plotly
+import plotly.graph_objs as go
+
+import plotly.express as px
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import json
+
+
 
 from flask import Flask, request, render_template, send_from_directory, Response
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -165,7 +175,7 @@ def manual_result():
     proba_dict = out.reset_index(drop=True).to_dict(orient='dict')
     return render_template('index.html',  gif=proba_dict['id'], names=proba_dict['pokemon'])
 
-@app.route('/graph', methods=['POST','GET'])
+
 def graph_poke(latitude=0,longitude=0, local_timezone=0):
     ''' Return graph of pokemon probs '''
     if latitude==0 and longitude==0 and local_timezone==0:
@@ -198,16 +208,28 @@ def graph_poke(latitude=0,longitude=0, local_timezone=0):
             pass
     df1['pokemon'] = new_list
     df2 = df1.sort_values(by=['prob'], ascending=False).head(25).sort_values(by=['prob'], ascending=True)
-    fig = Figure()
-    axis = fig.add_subplot(1, 1, 1)
+    # fig = Figure()
+    # axis = fig.add_subplot(1, 1, 1)
     xs = df2['prob']
-    xlabel = 'Probability'
-    ylabel = 'Pokemon'
     ys = df2['pokemon']
-    axis.barh(ys, xs)
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')
+    fig = px.bar(df2, x='prob', y="pokemon", orientation='h',
+        title='Probablity of Pokémon Sightings in Your Location')
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return graphJSON
+
+
+@app.route('/graph', methods=['POST','GET'])
+def hello():
+    bar = graph_poke()
+    return render_template('hello.html', plot=bar)
+    # axis.barh(ys, xs)
+    # axis.set_xlabel('Probability in decimals, out of 1')
+    # axis.set_ylabel('Pokémon')
+    # axis.set_title('Probablity of Pokémon Sightings in Your Location')
+    # output = io.BytesIO()
+    # FigureCanvas(fig).print_png(output)
+
+    # return Response(output.getvalue(), mimetype='image/png')
 
 
 @app.route('/manual')
